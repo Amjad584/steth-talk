@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
+</head>
+<body>
+    <header class="wrapper">
+        <h1 class="logo"><a href="{% url 'home' %}">Steth-Talk</a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li>
+                        <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn" type="submit">Logout</button>
+                        </form>
+                    </li>
+                    <li><a href="{% url 'posts:create' %}" class="highlight" >New Post</a></li>
+                {% else %}
+                <li class="btn"><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li class="btn"><a href="{% url 'accounts:signup' %}">SignUp</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="intro">
+        <p class="p-intro">Where Doctors can write posts</p>
+        <li class="tour-btn"><a href="{% url 'posts:newsfeed' %}">Take a tour</a></li>
+    </div>
+</body>
+</html>
+
